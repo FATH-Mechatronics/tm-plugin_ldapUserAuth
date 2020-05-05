@@ -1,0 +1,14 @@
+{
+  "name": "tm-plugin_ldapUserAuth",
+  "version": "1.0.0",
+  "description": "TANlockManager ldapUserAuthPlugin",
+  "main": "index.js",
+  "pluginType": "authPlugin",
+  "repository": "https://github.com/FATH-Mechatronics/tm-plugin_ldapUserAuth",
+  "author": "Fath Mechatronics GmbH",
+  "license": "AGPL-3.0",
+  "private": true,
+  "dependencies": {
+    "activedirectory": "^0.7.2"
+  }
+}
