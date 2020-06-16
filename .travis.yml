@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+- lts/*
+script:
+- yarn install
+- zip -r tm-plugin_ldapUserAuth.zip node_modules *.js *.json
+before_deploy:
+- git config --local user.name "Travis CI"
+- git config --local user.email "build@travis-ci.org"
+- export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
+- git tag $TRAVIS_TAG
+deploy:
+  provider: releases
+  api_key:
+    secure: pAavlx+hbJg3eJTjQGMwXQHQBvXNE1EUzch5jh+9K+vxv9fKQ3TblJPnVSs/8GKfK17RHK7Z1xk72Ov6TVyI0/rL8Oat35Hzl7hT2Y20cNV9bkEHRDzGckb8hDoXfLOwJAA3C0wTV1c4WoSFmGLChxdr6IuwdddqQwaAimhYYXgwjpKcV0kjNZJZ9JXi6/G9Ih+98ou1JpEkYm2RSujWKaSrxZJxT4xrYKkdSIP+1itnQUDwQ8u9kfGWnq9TAjzET8v3uSVoaeBsd/mOIW5BSPcsktWNOHEY0Pb50du64ULkBCruOKTdEbPGXVdVnt0fYpCxni2+WeCRibFQ3uOgQiQTS7P51qBey/MnAHID7KbOKQC5sRUwbRgqoVqsQecZkkR37y2UK/85wnu53ZXI9/ep7zvXfx3okbRHW9ku3nx8fb1rV0k4kcVbNXtckFJj+SglEZz4uEadXnXiwsd7HwXUNl1cm1oqumz6kxY9QFz02rw9JWv0ecmfqenBEI3Sen5CbVWVKyJpWvsUgRZJBYZhfWZEvQnAOuV6W8kI03deQPTeXrxN6leMcJ17RXIzKqMMzteMSvotW4vxacleypUuB2bOjvgvUDvxviaPGGms/Rs/4yvnqjFhkYB/keZqvlUfQbmfEmhYW/8hxpadhcO+dbueymScbZU7FjJZZcQ=
+  file: "./tm-plugin_ldapUserAuth.zip"
+  on:
+    repo: FATH-Mechatronics/tm-plugin_ldapUserAuth
+  skip_cleanup: 'true'
