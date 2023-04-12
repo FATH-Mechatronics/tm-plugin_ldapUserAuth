@@ -24,14 +24,18 @@ jobs:
         run: |
           zip -r tm-plugin_ldapUserAuth.zip node_modules *.js *.json
 
+      - name: tagging
+        run: |
+          echo "::set-output name=tag::$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         with:
           draft: false
           prerelease: false
-          release_name: ${{ github.ref }}
-          tag_name: ${{ github.ref }}
+          release_name: ${{ steps.tagging.outputs.tag }}
+          tag_name: ${{ steps.tagging.outputs.tag }}
         env:
           GITHUB_TOKEN: ${{ github.token }}
       
