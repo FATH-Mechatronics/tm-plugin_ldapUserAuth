@@ -26,7 +26,7 @@ jobs:
 
       - name: tagging
         run: |
-          echo "::set-output name=tag::$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+          echo "GH_TAG=$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)" >> $GITHUB_ENV
 
       - name: Create Release
         id: create_release
@@ -34,8 +34,8 @@ jobs:
         with:
           draft: false
           prerelease: false
-          release_name: ${{ steps.tagging.outputs.tag }}
-          tag_name: ${{ steps.tagging.outputs.tag }}
+          release_name: ${{ env.GH_TAG }}
+          tag_name: ${{ env.GH_TAG }}
         env:
           GITHUB_TOKEN: ${{ github.token }}
       
